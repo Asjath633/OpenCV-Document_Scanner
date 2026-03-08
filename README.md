@@ -14,25 +14,36 @@ This project makes use of the transform and imutils modules from pyimagesearch (
 * The scanner can also process an entire directory of images automatically and save the output in an output directory:
 ![Image Directory of images to be processed](https://github.com/andrewdcampbell/doc_scanner/blob/master/before_after.gif)
 
-#### Here are some examples of images before and after scan:
-<img src="https://github.com/andrewdcampbell/doc_scanner/blob/master/sample_images/cell_pic.jpg" height="450"> <img src="https://github.com/andrewdcampbell/doc_scanner/blob/master/output/cell_pic.jpg" height="450">
+### Installation & Setup
 
-<img src="https://github.com/andrewdcampbell/doc_scanner/blob/master/sample_images/receipt.jpg" height="450"> <img src="https://github.com/andrewdcampbell/doc_scanner/blob/master/output/receipt.jpg" height="450">
+1. **Create and Activate Virtual Environment:**
+   ```powershell
+   python -m venv .venv
+   .\.venv\Scripts\Activate.ps1
+   ```
 
-<img src="https://github.com/andrewdcampbell/doc_scanner/blob/master/sample_images/math_cheat_sheet.JPG" height="450"> <img src="https://github.com/andrewdcampbell/doc_scanner/blob/master/output/math_cheat_sheet.JPG" height="450">
-
-<img src="https://github.com/andrewdcampbell/doc_scanner/blob/master/sample_images/dollar_bill.JPG" width="350"> <img src="https://github.com/andrewdcampbell/doc_scanner/blob/master/output/dollar_bill.JPG" width="350">
-
+2. **Install Dependencies:**
+   ```powershell
+   pip install -r requirements.txt
+   ```
 
 ### Usage
+
+You can run the scanner using the virtual environment's python.
+
+**Scan a single image:**
+```powershell
+python scan.py --image path/to/image.jpg
 ```
-python scan.py (--images <IMG_DIR> | --image <IMG_PATH>) [-i]
+
+**Scan a single image with interactive mode (drag corners):**
+```powershell
+python scan.py --image path/to/image.jpg -i
 ```
-* The `-i` flag enables interactive mode, where you will be prompted to click and drag the corners of the document. For example, to scan a single image with interactive mode enabled:
+
+**Scan an entire directory of images:**
+```powershell
+python scan.py --images path/to/image_directory
 ```
-python scan.py --image sample_images/desk.JPG -i
-```
-* Alternatively, to scan all images in a directory without any input:
-```
-python scan.py --images sample_images
-```
+
+*Note: Scanned images will be saved in the `output/` directory.*
