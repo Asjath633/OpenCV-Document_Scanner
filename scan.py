@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 import itertools
 import math
 import cv2
-from pylsd.lsd import lsd
+# from pylsd.lsd import lsd
 
 import argparse
 import os
@@ -93,7 +93,8 @@ class DocScanner(object):
         This is a utility function used by get_contours. The input image is expected 
         to be rescaled and Canny filtered prior to be passed in.
         """
-        lines = lsd(img)
+        lsd = cv2.createLineSegmentDetector(0)
+        lines = lsd.detect(img)[0]
 
         # massages the output from LSD
         # LSD operates on edges. One "line" has 2 edges, and so we need to combine the edges back into lines
@@ -108,11 +109,11 @@ class DocScanner(object):
         corners = []
         if lines is not None:
             # separate out the horizontal and vertical lines, and draw them back onto separate canvases
-            lines = lines.squeeze().astype(np.int32).tolist()
+            lines = lines.reshape(-1, 4).astype(np.int32).tolist()
             horizontal_lines_canvas = np.zeros(img.shape, dtype=np.uint8)
             vertical_lines_canvas = np.zeros(img.shape, dtype=np.uint8)
             for line in lines:
-                x1, y1, x2, y2, _ = line
+                x1, y1, x2, y2 = line
                 if abs(x2 - x1) > abs(y2 - y1):
                     (x1, y1), (x2, y2) = sorted(((x1, y1), (x2, y2)), key=lambda pt: pt[0])
                     cv2.line(horizontal_lines_canvas, (max(x1 - 5, 0), y1), (min(x2 + 5, img.shape[1] - 1), y2), 255, 2)
