@@ -4,5 +4,7 @@ __pycache__/
 *.pyc
 .DS_Store
 output/
+sample_images/
 .idea/
 .vscode/
+output/
